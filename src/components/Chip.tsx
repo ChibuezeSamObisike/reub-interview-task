@@ -9,13 +9,14 @@ const Chip = ({ variant = "Prepaid" }: { variant?: string }) => {
     justifyContent: "center",
     width: "40%",
   };
+
   const chipVariants: { [key: string]: any } = {
     payondelivery: (
       <div style={defaultStyle} className='bg-[#FFF6ED] text-[#C4320A]'>
         Pay on delivery
       </div>
     ),
-    credit: (
+    paid: (
       <div style={defaultStyle} className='text-[#175CD3] bg-[#EFF8FF]'>
         Credit
       </div>
@@ -28,6 +29,14 @@ const Chip = ({ variant = "Prepaid" }: { variant?: string }) => {
     completed: (
       <div style={defaultStyle} className='bg-[#ECFDF3] text-[#027A48]'>
         Completed
+      </div>
+    ),
+    pending: (
+      <div
+        style={defaultStyle}
+        className='bg-[#FFFAEB] text-[#B54708] flex items-center'
+      >
+        <p>Pending</p>
       </div>
     ),
   };
