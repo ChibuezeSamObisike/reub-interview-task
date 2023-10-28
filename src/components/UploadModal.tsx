@@ -4,19 +4,18 @@ import Icons from "../assets/svg";
 
 import { useHandleUpload } from "../hooks";
 
-export default function MyModal() {
-  const {
-    isOpen,
-    closeModal,
-    openModal,
-    ref,
-    handleDragEnter,
-    handleDragLeave,
-    handleDrop,
-    handleInputChange,
-    handleUploadClick,
-  } = useHandleUpload();
-
+export default function MyModal({
+  file,
+  isOpen,
+  closeModal,
+  openModal,
+  ref,
+  handleDragEnter,
+  handleDragLeave,
+  handleDrop,
+  handleInputChange,
+  handleUploadClick,
+}: any) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -112,6 +111,7 @@ export default function MyModal() {
                       Cancel
                     </button>
                   </div>
+                  {file && <p>Uploaded File: {file.name}</p>}
                 </Dialog.Panel>
               </Transition.Child>
             </div>

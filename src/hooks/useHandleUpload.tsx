@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 const useHandleUpload = () => {
   const [drag, setDrag] = useState(false);
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<any>(null);
 
   let [isOpen, setIsOpen] = useState(false);
 

@@ -10,7 +10,18 @@ import { useQuery } from "react-query";
 import { http } from "../services/appService";
 
 const Orders = () => {
-  const { openModal, isOpen } = useHandleUpload();
+  const {
+    file,
+    isOpen,
+    closeModal,
+    openModal,
+    ref,
+    handleDragEnter,
+    handleDragLeave,
+    handleDrop,
+    handleInputChange,
+    handleUploadClick,
+  } = useHandleUpload();
   const tabData = [
     {
       title: "Assigned",
@@ -53,7 +64,17 @@ const Orders = () => {
 
   return (
     <>
-      <UploadModal />
+      <UploadModal
+        handleDragEnter={handleDragEnter}
+        file={file}
+        handleInputChange={handleInputChange}
+        handleUploadClick={handleUploadClick}
+        handleDragLeave={handleDragLeave}
+        handleDrop={handleDrop}
+        isOpen={isOpen}
+        ref={ref}
+        closeModal={closeModal}
+      />
       <Navbar />
       <div className='p-12 mt-[70px]'>
         <h1 className='text-3xl'>Orders</h1>
