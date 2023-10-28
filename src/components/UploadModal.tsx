@@ -2,13 +2,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import Icons from "../assets/svg";
 
-import { useHandleUpload } from "../hooks";
-
 export default function MyModal({
   file,
   isOpen,
   closeModal,
-  openModal,
   ref,
   handleDragEnter,
   handleDragLeave,

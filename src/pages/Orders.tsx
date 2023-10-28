@@ -8,6 +8,7 @@ import UploadModal from "../components/UploadModal";
 import { useHandleUpload } from "../hooks";
 import { useQuery } from "react-query";
 import { http } from "../services/appService";
+import { destructureData } from "../utils/middleware";
 
 const Orders = () => {
   const {
@@ -22,6 +23,7 @@ const Orders = () => {
     handleInputChange,
     handleUploadClick,
   } = useHandleUpload();
+
   const tabData = [
     {
       title: "Assigned",
@@ -51,16 +53,13 @@ const Orders = () => {
 
   useQuery("fetchOrders", () => http.get("/orders").then((res) => res.data), {
     onSuccess({ data }) {
-      console.log("Order daata", data);
+      //   console.log("Order daata", data.results);
+      destructureData(data?.results);
     },
     onError(err) {
       console.log("Be like say error don occur for fetch", err);
     },
   });
-
-  useEffect(() => {
-    console.log("token oo", localStorage.getItem("token"));
-  }, []);
 
   return (
     <>
