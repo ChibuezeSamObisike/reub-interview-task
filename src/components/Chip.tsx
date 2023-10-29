@@ -1,4 +1,5 @@
 import React, { CSSProperties } from "react";
+import Icons from "../assets/svg";
 
 const Chip = ({ variant = "Prepaid" }: { variant?: string }) => {
   const defaultStyle: CSSProperties = {
@@ -7,7 +8,8 @@ const Chip = ({ variant = "Prepaid" }: { variant?: string }) => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: "40%",
+    width: "55%",
+    fontWeight: 500,
   };
 
   const chipVariants: { [key: string]: any } = {
@@ -34,8 +36,9 @@ const Chip = ({ variant = "Prepaid" }: { variant?: string }) => {
     pending: (
       <div
         style={defaultStyle}
-        className='bg-[#FFFAEB] text-[#B54708] flex items-center'
+        className='bg-[#FFFAEB] text-[#B54708] flex items-center justify-between'
       >
+        <Icons.DotIcon />
         <p>Pending</p>
       </div>
     ),

@@ -1,5 +1,6 @@
 export const createOrders = (data: any) => {
-  return data?.rows?.map((item: any) => {
+  console.log("data items", data);
+  const rows = data?.rows?.map((item: any) => {
     return {
       customer: {
         name: item?.user?.fullName,
@@ -19,4 +20,13 @@ export const createOrders = (data: any) => {
       options: "",
     };
   });
+
+  return {
+    rows,
+    pagination: {
+      total: data?.total,
+      page: data?.page,
+      perPage: data?.perPage,
+    },
+  };
 };

@@ -1,10 +1,13 @@
 import { useRef, useState } from "react";
 import { http } from "../services/appService";
 import { useMutation } from "react-query";
+import useNotifications from "./useNotifications";
 
 const useHandleUpload = () => {
   const [drag, setDrag] = useState(false);
   const [file, setFile] = useState<any>(null);
+
+  const { openNotifications } = useNotifications();
 
   let [isOpen, setIsOpen] = useState(false);
 
@@ -79,10 +82,10 @@ const useHandleUpload = () => {
     },
     {
       onSuccess({ data }) {
-        console.log("On Success", data);
-        localStorage.setItem("token", data?.data?.token);
+        openNotifications({ type: "success" });
       },
       onError(err) {
+        openNotifications({ type: "error" });
         console.log("Errors>>", err);
       },
     }

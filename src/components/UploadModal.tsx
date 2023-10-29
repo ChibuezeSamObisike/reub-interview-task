@@ -67,7 +67,7 @@ export default function MyModal({
                       onDragLeave={handleDragLeave}
                       onDrop={handleDrop}
                       onClick={handleUploadClick}
-                      className='flex flex-col items-center pt-24 pb-8 mt-3'
+                      className='flex flex-col items-center pt-24 pb-8 mt-3 cursor-pointer'
                     >
                       <input
                         type='file'
@@ -86,7 +86,6 @@ export default function MyModal({
                             fontWeight: 500,
                           }}
                           role='button'
-                          onClick={handleUploadClick}
                         >
                           Click to upload
                         </span>{" "}

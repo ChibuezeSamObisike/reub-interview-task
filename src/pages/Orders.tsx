@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Tabs from "../components/Tabs";
 import Icons from "../assets/svg";
 import Input from "../components/Input";
@@ -8,11 +8,9 @@ import UploadModal from "../components/UploadModal";
 import Chip from "../components/Chip";
 import { useHandleUpload } from "../hooks";
 import { useQuery } from "react-query";
+import useNotifications from "../hooks/useNotifications";
 import { http } from "../services/appService";
 import { createOrders } from "../utils/middleware";
-import Alert from "../components/Alert";
-
-import useNotifications from "../hooks/useNotifications";
 
 const Orders = () => {
   const {
@@ -27,9 +25,8 @@ const Orders = () => {
     handleInputChange,
     handleUploadClick,
     isUploadLoading,
-    isUploadSuccess,
-    isUploadError,
   } = useHandleUpload();
+
   const { openNotifications } = useNotifications();
 
   const tabData = [
@@ -59,7 +56,7 @@ const Orders = () => {
     },
   ];
 
-  const { data } = useQuery(
+  const { data, isLoading: isTableLoading } = useQuery(
     "fetchOrders",
     () => http.get("/orders").then((res) => res.data),
     {
@@ -72,7 +69,7 @@ const Orders = () => {
 
   const orderItemsBody = createOrders(data?.data?.results);
 
-  const bodyRow = orderItemsBody?.map((ix: any) => {
+  const bodyRow = orderItemsBody?.rows?.map((ix: any) => {
     return {
       customer: (
         <div>
@@ -161,10 +158,11 @@ const Orders = () => {
         closeModal={closeModal}
       />
       <Navbar />
-      {isUploadSuccess && <Alert variant='success' />}
-      {isUploadError && <Alert variant='error' />}
       <div className='px-24 py-12 mt-[70px]'>
         <h1 className='text-3xl'>Orders</h1>
+        <button onClick={() => openNotifications({ type: "success" })}>
+          Open notif
+        </button>
         <div className='flex items-center justify-between mt-4'>
           <div className='w-[30%]'>
             <Input
@@ -181,7 +179,12 @@ const Orders = () => {
           </div>
         </div>
 
-        <Table headerTitle={headerTitle} tableBody={bodyRow} />
+        <Table
+          headerTitle={headerTitle}
+          tableBody={bodyRow}
+          isLoading={isTableLoading}
+          pagination={orderItemsBody.pagination}
+        />
       </div>
     </>
   );
