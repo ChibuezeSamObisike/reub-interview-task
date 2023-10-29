@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Tabs from "../components/Tabs";
 import Icons from "../assets/svg";
 import Input from "../components/Input";
@@ -11,6 +11,8 @@ import { useQuery } from "react-query";
 import { http } from "../services/appService";
 import { createOrders } from "../utils/middleware";
 import Alert from "../components/Alert";
+
+import useNotifications from "../hooks/useNotifications";
 
 const Orders = () => {
   const {
@@ -26,7 +28,9 @@ const Orders = () => {
     handleUploadClick,
     isUploadLoading,
     isUploadSuccess,
+    isUploadError,
   } = useHandleUpload();
+  const { openNotifications } = useNotifications();
 
   const tabData = [
     {
@@ -157,7 +161,8 @@ const Orders = () => {
         closeModal={closeModal}
       />
       <Navbar />
-      {true && <Alert variant='error' />}
+      {isUploadSuccess && <Alert variant='success' />}
+      {isUploadError && <Alert variant='error' />}
       <div className='px-24 py-12 mt-[70px]'>
         <h1 className='text-3xl'>Orders</h1>
         <div className='flex items-center justify-between mt-4'>
@@ -170,7 +175,7 @@ const Orders = () => {
           <div className='flex items-center justify-between'>
             {tabData.map((tabItem) => (
               <div className='mx-1'>
-                <Tabs {...tabItem} onClick={tabItem?.onClick} />
+                <Tabs {...tabItem} onClick={() => tabItem?.onClick?.()} />
               </div>
             ))}
           </div>

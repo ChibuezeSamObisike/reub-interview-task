@@ -1,6 +1,5 @@
 export const createOrders = (data: any) => {
   return data?.rows?.map((item: any) => {
-    console.log("Items x", item);
     return {
       customer: {
         name: item?.user?.fullName,

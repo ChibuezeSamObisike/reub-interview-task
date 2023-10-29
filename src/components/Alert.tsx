@@ -1,18 +1,20 @@
 import React from "react";
 import Icons from "../assets/svg";
 
-const Alert = ({ variant = "success" }: { variant: string }) => {
+const Alert = ({
+  variant = "success",
+  onClose,
+}: {
+  variant: string;
+  onClose?: () => void;
+}) => {
   const alertVariant: { [key: string]: any } = {
     success: (
       <div
         style={{
-          position: "absolute",
-          top: "15%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
           border: "1px solid #6CE9A6",
           borderRadius: "8px",
-          width: "30%",
+          width: "100%",
         }}
         className='bg-[#F6FEF9] text-[#027A48] px-3 py-4 flex items-center justify-between'
       >
@@ -20,7 +22,11 @@ const Alert = ({ variant = "success" }: { variant: string }) => {
           <Icons.CheckIcon />
           <p className='ml-2'>Successfully uploaded</p>
         </div>
-        <div className='cursor-pointer'>
+        <div
+          className='cursor-pointer'
+          role='button'
+          onClick={() => onClose?.()}
+        >
           <Icons.CancelIcon />
         </div>
       </div>
@@ -29,13 +35,9 @@ const Alert = ({ variant = "success" }: { variant: string }) => {
     error: (
       <div
         style={{
-          position: "absolute",
-          top: "15%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
           border: "1px solid #FDA29B",
           borderRadius: "8px",
-          width: "30%",
+          width: "100%",
         }}
         className='bg-[#FFFBFA] text-[#B42318] px-3 py-4 flex items-center justify-between'
       >
@@ -43,7 +45,11 @@ const Alert = ({ variant = "success" }: { variant: string }) => {
           <Icons.ErrorWarningIcon />
           <p className='ml-2'>An Error Occur. Your Upload Failed</p>
         </div>
-        <div className='cursor-pointer'>
+        <div
+          className='cursor-pointer'
+          role='button'
+          onClick={() => onClose?.()}
+        >
           <Icons.CancelRedIcon />
         </div>
       </div>
