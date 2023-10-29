@@ -10,6 +10,7 @@ import { useHandleUpload } from "../hooks";
 import { useQuery } from "react-query";
 import { http } from "../services/appService";
 import { createOrders } from "../utils/middleware";
+import Alert from "../components/Alert";
 
 const Orders = () => {
   const {
@@ -17,12 +18,14 @@ const Orders = () => {
     isOpen,
     closeModal,
     openModal,
-    ref,
+    inputRef,
     handleDragEnter,
     handleDragLeave,
     handleDrop,
     handleInputChange,
     handleUploadClick,
+    isUploadLoading,
+    isUploadSuccess,
   } = useHandleUpload();
 
   const tabData = [
@@ -56,17 +59,12 @@ const Orders = () => {
     "fetchOrders",
     () => http.get("/orders").then((res) => res.data),
     {
-      onSuccess({ data }) {
-        //   console.log("Order daata", data.results);
-        //  console.log("Orders arrange", createOrders(data?.results));
-      },
+      onSuccess({ data }) {},
       onError(err) {
         console.log("Be like say error don occur for fetch", err);
       },
     }
   );
-
-  console.log("Orders pro max", createOrders(data?.data?.results));
 
   const orderItemsBody = createOrders(data?.data?.results);
 
@@ -83,13 +81,28 @@ const Orders = () => {
       payment_type: (
         <div className='flex flex-col align-left justify-start bg-yellow'>
           <p style={{ textTransform: "capitalize" }}>
-            {ix?.payment_type?.type}
+            {ix?.payment_type?.type ?? "No payment"}
           </p>
           <Chip variant={ix?.payment_type?.status} />
         </div>
       ),
       status: <Chip variant={ix?.status} />,
-      assigned: <p style={{ textTransform: "capitalize" }}>{ix?.assigned}</p>,
+      assigned: (
+        <div className='flex items-center'>
+          <div
+            style={{
+              width: "30px",
+              height: "30px",
+              borderRadius: "50%",
+              overflow: "hidden",
+              marginRight: "10px",
+            }}
+          >
+            <img src={ix?.assigned?.profileUrl} alt='person-img' />
+          </div>
+          <p style={{ textTransform: "capitalize" }}>{ix?.assigned?.title}</p>
+        </div>
+      ),
       options: (
         <div className='cursor-pointer'>
           <Icons.OptionsIcon />
@@ -132,18 +145,20 @@ const Orders = () => {
   return (
     <>
       <UploadModal
-        handleDragEnter={handleDragEnter}
         file={file}
+        isOpen={isOpen}
+        inputRef={inputRef}
+        isLoading={isUploadLoading}
+        handleDragEnter={handleDragEnter}
         handleInputChange={handleInputChange}
         handleUploadClick={handleUploadClick}
         handleDragLeave={handleDragLeave}
         handleDrop={handleDrop}
-        isOpen={isOpen}
-        ref={ref}
         closeModal={closeModal}
       />
       <Navbar />
-      <div className='p-12 mt-[70px]'>
+      {true && <Alert variant='error' />}
+      <div className='px-24 py-12 mt-[70px]'>
         <h1 className='text-3xl'>Orders</h1>
         <div className='flex items-center justify-between mt-4'>
           <div className='w-[30%]'>

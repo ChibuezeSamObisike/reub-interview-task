@@ -36,7 +36,7 @@ const Navbar = () => {
         top: 0,
         left: 0,
       }}
-      className='flex items-center justify-between px-12 py-6 mb-12 bg-[#fff]'
+      className='flex items-center justify-between px-24 py-6 mb-12 bg-[#fff]'
     >
       <Icons.ReubecomLogo />
 

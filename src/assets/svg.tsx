@@ -249,6 +249,100 @@ const CloudIcon = () => {
   );
 };
 
+const CheckIcon = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='20'
+      height='20'
+      viewBox='0 0 20 20'
+      fill='none'
+    >
+      <g clip-path='url(#clip0_4708_762)'>
+        <path
+          d='M18.3333 9.23332V9.99998C18.3323 11.797 17.7504 13.5455 16.6744 14.9848C15.5984 16.4241 14.086 17.477 12.3628 17.9866C10.6395 18.4961 8.79768 18.4349 7.11202 17.8121C5.42636 17.1894 3.98717 16.0384 3.00909 14.5309C2.03101 13.0233 1.56645 11.24 1.68469 9.44691C1.80293 7.65379 2.49763 5.94692 3.66519 4.58088C4.83275 3.21483 6.41061 2.2628 8.16345 1.86677C9.91629 1.47074 11.7502 1.65193 13.3916 2.38332M18.3333 3.33332L9.99996 11.675L7.49996 9.17498'
+          stroke='#039855'
+          stroke-width='1.66667'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+        />
+      </g>
+      <defs>
+        <clipPath id='clip0_4708_762'>
+          <rect width='20' height='20' fill='white' />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+const CancelIcon = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='20'
+      height='20'
+      viewBox='0 0 20 20'
+      fill='none'
+    >
+      <path
+        d='M15 5L5 15M5 5L15 15'
+        stroke='#027A48'
+        stroke-width='1.67'
+        stroke-linecap='round'
+        stroke-linejoin='round'
+      />
+    </svg>
+  );
+};
+
+const ErrorWarningIcon = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='20'
+      height='20'
+      viewBox='0 0 20 20'
+      fill='none'
+    >
+      <g clip-path='url(#clip0_4708_425)'>
+        <path
+          d='M10.0001 6.66667V10M10.0001 13.3333H10.0084M18.3334 10C18.3334 14.6024 14.6025 18.3333 10.0001 18.3333C5.39771 18.3333 1.66675 14.6024 1.66675 10C1.66675 5.39763 5.39771 1.66667 10.0001 1.66667C14.6025 1.66667 18.3334 5.39763 18.3334 10Z'
+          stroke='#D92D20'
+          stroke-width='1.66667'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+        />
+      </g>
+      <defs>
+        <clipPath id='clip0_4708_425'>
+          <rect width='20' height='20' fill='white' />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+const CancelRedIcon = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='20'
+      height='20'
+      viewBox='0 0 20 20'
+      fill='none'
+    >
+      <path
+        d='M15 5L5 15M5 5L15 15'
+        stroke='#B42318'
+        stroke-width='1.67'
+        stroke-linecap='round'
+        stroke-linejoin='round'
+      />
+    </svg>
+  );
+};
+
 const Icons = {
   ReubecomLogo,
   AssignedIcon,
@@ -263,6 +357,10 @@ const Icons = {
   CommentIcon,
   CloseIcon,
   CloudIcon,
+  CheckIcon,
+  CancelIcon,
+  CancelRedIcon,
+  ErrorWarningIcon,
 };
 
 export default Icons;

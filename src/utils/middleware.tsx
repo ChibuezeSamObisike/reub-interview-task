@@ -1,5 +1,6 @@
 export const createOrders = (data: any) => {
   return data?.rows?.map((item: any) => {
+    console.log("Items x", item);
     return {
       customer: {
         name: item?.user?.fullName,
@@ -12,7 +13,10 @@ export const createOrders = (data: any) => {
         status: item?.paymentInfo?.status,
       },
       status: item.orderStatus,
-      assigned: item?.receiver.name,
+      assigned: {
+        title: item?.receiver.name,
+        profileUrl: item?.user?.profileImage,
+      },
       options: "",
     };
   });

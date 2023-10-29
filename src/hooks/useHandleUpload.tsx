@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import { http } from "../services/appService";
+import { useMutation } from "react-query";
 
 const useHandleUpload = () => {
   const [drag, setDrag] = useState(false);
@@ -54,6 +56,7 @@ const useHandleUpload = () => {
         setFile(uploadedFile);
 
         // Perform additional checks for dimensions or file size if needed
+        uploadService(uploadedFile);
       } else {
         // File type is not supported
         alert("Please upload a file of type XLS, CSV, or JSON.");
@@ -70,6 +73,27 @@ const useHandleUpload = () => {
     ref.current?.click();
   };
 
+  const { isLoading, mutate, isSuccess } = useMutation(
+    (formItem: any) => {
+      return http.post("/import/Orders/", formItem);
+    },
+    {
+      onSuccess({ data }) {
+        console.log("On Success", data);
+        localStorage.setItem("token", data?.data?.token);
+      },
+      onError(err) {
+        console.log("Errors>>", err);
+      },
+    }
+  );
+
+  const uploadService = (data: any) => {
+    const formData = new FormData();
+    formData.append("file", data);
+    mutate(formData);
+  };
+
   return {
     handleDragEnter,
     handleDragLeave,
@@ -77,10 +101,12 @@ const useHandleUpload = () => {
     handleInputChange,
     handleDrop,
     file,
-    ref,
+    inputRef: ref,
     isOpen,
     closeModal,
     openModal,
+    isUploadLoading: isLoading,
+    isUploadSuccess: isSuccess,
   };
 };
 

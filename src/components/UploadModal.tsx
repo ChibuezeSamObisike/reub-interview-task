@@ -1,12 +1,12 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import Icons from "../assets/svg";
 
 export default function MyModal({
   file,
   isOpen,
   closeModal,
-  ref,
+  inputRef,
   handleDragEnter,
   handleDragLeave,
   handleDrop,
@@ -72,7 +72,7 @@ export default function MyModal({
                       <input
                         type='file'
                         id='fileInput'
-                        ref={ref}
+                        ref={inputRef}
                         onChange={handleInputChange}
                         style={{ display: "none" }}
                         accept='.xls,.csv,.json'
