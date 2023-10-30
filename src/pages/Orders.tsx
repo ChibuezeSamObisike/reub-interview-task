@@ -158,9 +158,6 @@ const Orders = () => {
       <Navbar />
       <div className='px-24 py-12 mt-[70px]'>
         <h1 className='text-3xl'>Orders</h1>
-        <button onClick={() => openNotifications({ type: "success" })}>
-          Open notif
-        </button>
         <div className='flex items-center justify-between mt-4'>
           <div className='w-[30%]'>
             <Input
