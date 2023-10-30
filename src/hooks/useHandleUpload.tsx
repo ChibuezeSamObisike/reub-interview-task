@@ -9,7 +9,7 @@ const useHandleUpload = () => {
   const [file, setFile] = useState<any>(null);
 
   const { openNotifications } = useNotifications();
-  const { invalidateQueries } = new QueryClient();
+  const queryClient = new QueryClient();
 
   let [isOpen, setIsOpen] = useState(false);
 
@@ -92,11 +92,16 @@ const useHandleUpload = () => {
     {
       onSuccess({ data }) {
         openNotifications({ type: "success" });
-        invalidateQueries({
+        queryClient.invalidateQueries({
           queryKey: ["fetchOrders"],
         });
+
+        closeModal();
       },
-      onError(err) {},
+      onError(err) {
+        console.log("Querry error", err);
+        openNotifications({ type: "error" });
+      },
     }
   );
 
