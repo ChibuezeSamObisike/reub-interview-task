@@ -2,6 +2,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import Icons from "../assets/svg";
 
+import { QueryClient } from "react-query";
+
 export default function MyModal({
   file,
   isOpen,
@@ -13,6 +15,7 @@ export default function MyModal({
   handleInputChange,
   handleUploadClick,
 }: any) {
+  const queryClient = new QueryClient();
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>

@@ -61,9 +61,7 @@ const Orders = () => {
     () => http.get("/orders").then((res) => res.data),
     {
       onSuccess({ data }) {},
-      onError(err) {
-        console.log("Be like say error don occur for fetch", err);
-      },
+      onError(err) {},
     }
   );
 

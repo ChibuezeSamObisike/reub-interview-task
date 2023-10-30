@@ -4,9 +4,11 @@ import Icons from "../assets/svg";
 const Alert = ({
   variant = "success",
   onClose,
+  message = "Successfully uploaded",
 }: {
   variant: string;
   onClose?: () => void;
+  message?: string;
 }) => {
   const alertVariant: { [key: string]: any } = {
     success: (
@@ -20,7 +22,7 @@ const Alert = ({
       >
         <div className='flex items-center'>
           <Icons.CheckIcon />
-          <p className='ml-2'>Successfully uploaded</p>
+          <p className='ml-2'>{message}</p>
         </div>
         <div
           className='cursor-pointer'

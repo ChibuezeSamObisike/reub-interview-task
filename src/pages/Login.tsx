@@ -4,6 +4,8 @@ import Icons from "../assets/svg";
 
 import { useMutation } from "react-query";
 import { http } from "../services/appService";
+import { useNavigate } from "react-router-dom";
+import useNotifications from "../hooks/useNotifications";
 
 interface IProps {
   email: string;
@@ -15,6 +17,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
+  const { openNotifications } = useNotifications();
 
   const handleChange = (e: any) => {
     setUserDetail({
@@ -29,12 +34,11 @@ const Login = () => {
     },
     {
       onSuccess({ data }) {
-        console.log("On Success", data);
+        openNotifications({ type: "success", message: "Login successfully" });
         localStorage.setItem("token", data?.data?.token);
+        navigate("/");
       },
-      onError(err) {
-        console.log("Errors>>", err);
-      },
+      onError(err) {},
     }
   );
 
@@ -47,30 +51,39 @@ const Login = () => {
             Hi Welcome, Kindly Login to continue
           </h1>
         </div>
-        <Input
-          placeholder='Email'
-          name='email'
-          customStyle={{ marginBottom: "10px" }}
-          onChange={handleChange}
-        />
-        <Input placeholder='Password' name='password' onChange={handleChange} />
-        <button
-          style={{
-            backgroundColor: "#D10121",
-            color: "white",
-            borderRadius: "8px",
-            boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
-            width: "100%",
-          }}
-          onClick={() => {
+        <form
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
             mutate(userDetail);
           }}
-          className='px-2 py-2 mt-5 text-center flex items-center justify-center cursor-pointer'
         >
-          <p className='text-center font-bold'>
-            {!isLoading ? "Login" : "Loading"}
-          </p>
-        </button>
+          <Input
+            placeholder='Email'
+            name='email'
+            customStyle={{ marginBottom: "10px" }}
+            onChange={handleChange}
+          />
+          <Input
+            placeholder='Password'
+            name='password'
+            onChange={handleChange}
+          />
+          <button
+            style={{
+              backgroundColor: "#D10121",
+              color: "white",
+              borderRadius: "8px",
+              boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
+              width: "100%",
+            }}
+            type='submit'
+            className='px-2 py-2 mt-5 text-center flex items-center justify-center cursor-pointer'
+          >
+            <p className='text-center font-bold'>
+              {!isLoading ? "Login" : "Loading"}
+            </p>
+          </button>
+        </form>
       </div>
     </div>
   );

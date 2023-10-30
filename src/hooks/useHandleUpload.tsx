@@ -2,21 +2,28 @@ import { useRef, useState } from "react";
 import { http } from "../services/appService";
 import { useMutation } from "react-query";
 import useNotifications from "./useNotifications";
+import { QueryClient } from "react-query";
 
 const useHandleUpload = () => {
   const [drag, setDrag] = useState(false);
   const [file, setFile] = useState<any>(null);
 
   const { openNotifications } = useNotifications();
+  const { invalidateQueries } = new QueryClient();
 
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
+    handleModalClose();
   }
 
   function openModal() {
     setIsOpen(true);
+  }
+
+  function handleModalClose() {
+    setFile(null);
   }
 
   const ref = useRef<HTMLInputElement>(null);
@@ -78,16 +85,18 @@ const useHandleUpload = () => {
 
   const { isLoading, mutate, isSuccess, isError } = useMutation(
     (formItem: any) => {
-      return http.post("/auth/import/Orders/", formItem);
+      return http.post("/auth/import/Orders/", formItem, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
     },
     {
       onSuccess({ data }) {
         openNotifications({ type: "success" });
+        invalidateQueries({
+          queryKey: ["fetchOrders"],
+        });
       },
-      onError(err) {
-        openNotifications({ type: "error" });
-        console.log("Errors>>", err);
-      },
+      onError(err) {},
     }
   );
 

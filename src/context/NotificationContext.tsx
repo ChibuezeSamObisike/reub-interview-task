@@ -9,16 +9,24 @@ interface IProps {
 }
 
 const NotificationContextProvider = ({ children }: IProps) => {
-  const [openData, setOpenData] = useState<Array<{ type: string; id: string }>>(
-    []
-  );
+  const [openData, setOpenData] = useState<
+    Array<{ type: string; id: string; message?: string }>
+  >([]);
   const [timeouts, setTimeouts] = useState<NodeJS.Timeout[]>([]);
 
-  const openNotifications = ({ type }: { type: string }) => {
-    const constructNotifaction: { type: string; id: string } = {
-      type,
-      id: v4(),
-    };
+  const openNotifications = ({
+    type,
+    message,
+  }: {
+    type: string;
+    message?: string;
+  }) => {
+    const constructNotifaction: { type: string; id: string; message?: string } =
+      {
+        type,
+        id: v4(),
+        message,
+      };
     setOpenData([...openData, constructNotifaction]);
 
     const timeoutId: NodeJS.Timeout = setTimeout(
@@ -58,6 +66,7 @@ const NotificationContextProvider = ({ children }: IProps) => {
             <Alert
               variant={item?.type}
               key={item?.id}
+              message={item?.message}
               onClose={() => closeNotification(item?.id)}
             />
           </div>
